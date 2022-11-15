@@ -4,8 +4,9 @@
     {
         Task<T> Get(int id);
         Task<IReadOnlyList<T>> GetAll();
+        Task<bool> Exists(int id);
         Task<T> Add(T entity);
-        Task<T> Update(T entity);
-        Task<T> Delete(T entity);
+        Task Update(T entity);
+        Task Delete(T entity);
     }
 }
