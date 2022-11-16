@@ -1,10 +1,9 @@
-﻿using HR.LeaveManagement.Application.DTOs.LeaveAllocation;
-using MediatR;
+﻿using MediatR;
 
 namespace HR.LeaveManagement.Application.Features.LeaveAllocations.Requests.Commands
 {
     public class DeleteLeaveAllocationCommand : IRequest
     {
-        public LeaveAllocationDto LeaveAllocationDto { get; set; }
+        public int Id { get; set; }
     }
 }
