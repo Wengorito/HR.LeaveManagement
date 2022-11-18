@@ -1,4 +1,11 @@
+using HR.LeaveManagement.MVC.Contracts;
 using HR.LeaveManagement.MVC.Services;
+using HR.LeaveManagement.MVC.Services.Base;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using System;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -6,6 +13,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient<IClient, Client>(cl => cl.BaseAddress = new Uri("https://localhost:44396"));
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+builder.Services.AddSingleton<ILocalStorageService, LocalStorageService>();
 
 var app = builder.Build();
 
