@@ -1,6 +1,6 @@
 ﻿namespace HR.LeaveManagement.MVC.Contracts
 {
-    public class ILeaveRequestService
+    public interface ILeaveRequestService
     {
     }
 }

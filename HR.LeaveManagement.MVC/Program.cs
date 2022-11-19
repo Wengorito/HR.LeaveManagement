@@ -14,6 +14,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddHttpClient<IClient, Client>(cl => cl.BaseAddress = new Uri("https://localhost:44396"));
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+builder.Services.AddScoped<ILeaveTypeService, LeaveTypeService>();  
 
 builder.Services.AddSingleton<ILocalStorageService, LocalStorageService>();
 
