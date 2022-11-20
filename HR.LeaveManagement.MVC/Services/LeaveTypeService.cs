@@ -2,6 +2,7 @@
 using HR.LeaveManagement.MVC.Contracts;
 using HR.LeaveManagement.MVC.Models;
 using HR.LeaveManagement.MVC.Services.Base;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -39,7 +40,7 @@ namespace HR.LeaveManagement.MVC.Services
                 {
                     foreach(var error in apiResponse.Errors)
                     {
-                        response.ValidationErrors += error + Enviroment.NewLine;
+                        response.ValidationErrors += error + Environment.NewLine;
                     }
                 }
                 return response;

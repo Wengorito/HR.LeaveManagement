@@ -19,6 +19,7 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.ConfigureApplicationServices();
 builder.Services.ConfigureInfrastructureServices(builder.Configuration);
 builder.Services.ConfigurePersistenceServices(builder.Configuration);
+builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddCors(o =>
 {
