@@ -2,12 +2,12 @@
 
 namespace HR.LeaveManagement.MVC.Models
 {
-    public class LeaveTypeVM : CreateLeaveTypeVM
+    public class LeaveTypeVm : CreateLeaveTypeVm
     {
         public int Id { get; set; }
     }
 
-    public class CreateLeaveTypeVM
+    public class CreateLeaveTypeVm
     {
         [Required]
         public string Name { get; set; }

@@ -7,10 +7,10 @@ namespace HR.LeaveManagement.MVC.Contracts
 {
     public interface ILeaveTypeService
     {
-        Task<List<LeaveTypeVM>> GetLeaveTypes();
-        Task<LeaveTypeVM> GetLeaveTypeDetails(int id);
-        Task<Response<int>> CreateLeaveType(CreateLeaveTypeVM leaveType);
-        Task UpdateLeaveType(LeaveTypeVM leaveType);
-        Task DeleteLeaveType(int id);
+        Task<List<LeaveTypeVm>> GetLeaveTypes();
+        Task<LeaveTypeVm> GetLeaveTypeDetails(int id);
+        Task<Response<int>> CreateLeaveType(CreateLeaveTypeVm leaveType);
+        Task<Response<int>> UpdateLeaveType(LeaveTypeVm leaveType);
+        Task<Response<int>> DeleteLeaveType(int id);
     }
 }

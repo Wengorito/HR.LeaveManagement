@@ -20,29 +20,73 @@ namespace HR.LeaveManagement.MVC.Services
             _client = client;
         }
 
-        public Task<Response<int>> CreateLeaveType(CreateLeaveTypeVM leaveType)
+        public async Task<Response<int>> CreateLeaveType(CreateLeaveTypeVm leaveType)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var response = new Response<int>();
+                var createLeaveType = _mapper.Map<CreateLeaveTypeDto>(leaveType);
+                var apiResponse = await _client.LeaveTypesPOSTAsync(createLeaveType);
+
+                // Http-wise response can be 200 and still operation failed due to api (eg validation) hence checkiing Success flag
+
+                if(apiResponse.Success)
+                {
+                    response.Data = apiResponse.Id;
+                    response.Success= true;
+                }
+                else
+                {
+                    foreach(var error in apiResponse.Errors)
+                    {
+                        response.ValidationErrors += error + Enviroment.NewLine;
+                    }
+                }
+                return response;
+            }
+            catch(ApiException ex)
+            {
+                return ConvertApiExceptions<int>(ex);
+            }
         }
 
-        public Task DeleteLeaveType(int id)
+        public async Task<Response<int>> DeleteLeaveType(int id)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                await _client.LeaveTypesDELETEAsync(id);
+                return new Response<int> { Success = true };
+            }
+            catch(ApiException ex)
+            {
+                return ConvertApiExceptions<int>(ex);
+            }
         }
 
-        public Task<LeaveTypeVM> GetLeaveTypeDetails(int id)
+        public async Task<LeaveTypeVm> GetLeaveTypeDetails(int id)
         {
-            throw new System.NotImplementedException();
+            var leaveType = await _client.LeaveTypesGETAsync(id);
+            return _mapper.Map<LeaveTypeVm>(leaveType);
         }
 
-        public Task<List<LeaveTypeVM>> GetLeaveTypes()
+        public async Task<List<LeaveTypeVm>> GetLeaveTypes()
         {
-            throw new System.NotImplementedException();
+            var leaveTypes = await _client.LeaveTypesAllAsync();
+            return _mapper.Map<List<LeaveTypeVm>>(leaveTypes);
         }
 
-        public Task UpdateLeaveType(LeaveTypeVM leaveType)
+        public async Task<Response<int>> UpdateLeaveType(LeaveTypeVm leaveType)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+                var leaveTypeDto = _mapper.Map<LeaveTypeDto>(leaveType);
+                await _client.LeaveTypesPUTAsync(leaveTypeDto);
+                return new Response<int> { Success = true };
+            }
+            catch (ApiException ex)
+            {
+                return ConvertApiExceptions<int>(ex);
+            }
         }
     }
 }
