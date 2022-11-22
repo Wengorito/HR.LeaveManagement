@@ -11,13 +11,13 @@ namespace HR.LeaveManagement.MVC.Services
     public class LeaveTypeService : BaseHttpService, ILeaveTypeService
     {
         private readonly IMapper _mapper;
-        private readonly ILocalStorageService _localStorage;
+        private readonly ILocalStorageService _localStorageService;
         private readonly IClient _client;
 
-        public LeaveTypeService(IMapper mapper, ILocalStorageService localStorage, IClient client) : base(localStorage, client)
+        public LeaveTypeService(IMapper mapper, ILocalStorageService localStorageService, IClient client) : base(localStorageService, client)
         {
             _mapper = mapper;
-            _localStorage = localStorage;
+            _localStorageService = localStorageService;
             _client = client;
         }
 
@@ -31,21 +31,21 @@ namespace HR.LeaveManagement.MVC.Services
 
                 // Http-wise response can be 200 and still operation failed due to api (eg validation) hence checkiing Success flag
 
-                if(apiResponse.Success)
+                if (apiResponse.Success)
                 {
                     response.Data = apiResponse.Id;
-                    response.Success= true;
+                    response.Success = true;
                 }
                 else
                 {
-                    foreach(var error in apiResponse.Errors)
+                    foreach (var error in apiResponse.Errors)
                     {
                         response.ValidationErrors += error + Environment.NewLine;
                     }
                 }
                 return response;
             }
-            catch(ApiException ex)
+            catch (ApiException ex)
             {
                 return ConvertApiExceptions<int>(ex);
             }
@@ -58,7 +58,7 @@ namespace HR.LeaveManagement.MVC.Services
                 await _client.LeaveTypesDELETEAsync(id);
                 return new Response<int> { Success = true };
             }
-            catch(ApiException ex)
+            catch (ApiException ex)
             {
                 return ConvertApiExceptions<int>(ex);
             }
